@@ -8,15 +8,13 @@ import java.io.PrintStream;
  * Created by lmarcich on 3/3/17.
  */
 public class Game {
-    private BufferedReader in;
     private PrintStream out;
     private Board board;
     private final Player p1;
     private final Player p2;
 
 
-    public Game(BufferedReader in, PrintStream out, Board board, Player p1, Player p2) {
-        this.in = in;
+    public Game(PrintStream out, Board board, Player p1, Player p2) {
         this.out = out;
         this.board = board;
         this.p1 = p1;

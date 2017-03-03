@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 public class Main {
 
     public static void main(String[] args) {
-        new Game(new BufferedReader(new InputStreamReader(System.in)), System.out, new Board(System.out, new String[9]), new Player(new BufferedReader(new InputStreamReader(System.in)), System.out, 1, "X"), new Player(new BufferedReader(new InputStreamReader(System.in)), System.out, 2, "O")).start();
+        new Game(System.out, new Board(System.out, new String[9]), new Player(new BufferedReader(new InputStreamReader(System.in)), System.out, 1, "X"), new Player(new BufferedReader(new InputStreamReader(System.in)), System.out, 2, "O")).start();
     }
 
 }

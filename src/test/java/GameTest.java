@@ -1,12 +1,10 @@
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 /**
@@ -30,7 +28,7 @@ public class GameTest {
         p2 = mock(Player.class);
         when(p1.mark()).thenReturn("X");
         when(p2.mark()).thenReturn("O");
-        game = new Game(in, out, board, p1, p2);
+        game = new Game(out, board, p1, p2);
     }
 
 
