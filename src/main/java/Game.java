@@ -10,32 +10,31 @@ import java.io.PrintStream;
 public class Game {
     private BufferedReader in;
     private PrintStream out;
-    private String[] board = new String[9];
+    private Board board;
 
 
-    public Game(BufferedReader in, PrintStream out) {
+    public Game(BufferedReader in, PrintStream out, Board board) {
         this.in = in;
         this.out = out;
 
-        for (int i = 0; i < board.length; i++){
-            board[i] = i + 1 + "";
-        }
+
+        this.board = board;
     }
 
 
     public void start() {
-        displayBoard();
-        getPlayerOneLocationSelection();
+        board.display();
+        playerOneLocationSelection();
     }
 
 
-    private void getPlayerOneLocationSelection() {
+    private void playerOneLocationSelection() {
         out.println("Player 1- please select a space to place your mark: ");
 
         try {
             String markLocation = in.readLine();
-            board[Integer.parseInt(markLocation) - 1] = "X";
-            displayBoard();
+            board.placeMarkAtLocation("X", Integer.parseInt(markLocation));
+            board.display();
         } catch (IOException e) {
 
         } //catch (NumberFormatException e2){
@@ -44,21 +43,7 @@ public class Game {
     }
 
 
-    private void displayBoard(){
-        String boardString = "";
-        for (int r = 0; r < 3; r++){
-            for (int c = 0; c < 3; c++){
-                boardString += board[r * 3 + c];
-                if (c < 2){
-                    boardString += "|";
-                }
-            }
-            if (r < 2){
-            boardString += "\n-----\n";
-            }
-        }
-        out.println(boardString);
-    }
+
 
 
 }
