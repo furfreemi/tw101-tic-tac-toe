@@ -1,4 +1,4 @@
-import com.sun.org.apache.xpath.internal.operations.Number;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,6 +11,7 @@ public class Game {
     private BufferedReader in;
     private PrintStream out;
     private Board board;
+    private boolean playerOneTurn = true;
 
 
     public Game(BufferedReader in, PrintStream out, Board board) {
@@ -24,23 +25,41 @@ public class Game {
 
     public void start() {
         board.display();
-        playerOneLocationSelection();
+         playerMarkSelection();
+         playerMarkSelection();
+         playerMarkSelection();
+
     }
 
 
-    private void playerOneLocationSelection() {
-        out.println("Player 1- please select a space to place your mark: ");
+    private void playerMarkSelection() {
+        String mark = "X";
+        int player = 1;
+
+        if (!playerOneTurn){
+            mark = "O";
+            player = 2;
+        }
 
         try {
-            String markLocation = in.readLine();
-            board.placeMarkAtLocation("X", Integer.parseInt(markLocation));
+            boolean placedMark = false;
+            while (!placedMark) {
+                out.println("Player " + player + "- please select a space to place your mark: ");
+                int markLocation = Integer.parseInt(in.readLine());
+                if (board.availableLocation(markLocation)) {
+                    board.placeMarkAtLocation(mark, markLocation);
+                    placedMark = true;
+                } else {
+                    out.println("Location already taken.");
+                }
+            }
             board.display();
         } catch (IOException e) {
 
-        } //catch (NumberFormatException e2){
-
-        //}
+        }
+        playerOneTurn = !playerOneTurn;
     }
+
 
 
 

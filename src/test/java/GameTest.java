@@ -24,7 +24,10 @@ public class GameTest {
         in = mock(BufferedReader.class);
         board = mock(Board.class);
         game = new Game(in, out, board);
-        when(in.readLine()).thenReturn("1");
+        when(in.readLine()).thenReturn("1", "3", "3", "4");
+        when(board.availableLocation(1)).thenReturn(true);
+        when(board.availableLocation(3)).thenReturn(true, false);
+        when(board.availableLocation(4)).thenReturn(true);
         game.start();
     }
 
@@ -35,15 +38,20 @@ public class GameTest {
     }
 
 
+
+
+
+
+
     @Test
     public void shouldPromptFirstPlayerForSpaceSelection(){
-        verify(out).println("Player 1- please select a space to place your mark: ");
+        verify(out, atLeast(1)).println("Player 1- please select a space to place your mark: ");
     }
 
 
     @Test
     public void shouldReadSelectionFromFirstPlayer() throws IOException {
-        verify(in).readLine();
+        verify(in, atLeast(1)).readLine();
     }
 
     @Test
@@ -55,6 +63,45 @@ public class GameTest {
     @Test
     public void shouldReprintBoardWithMarkWhenFirstPlayerEntersInput() {
         verify(board, atLeast(2)).display();
+    }
+
+
+
+
+
+
+
+    @Test
+    public void shouldPromptSecondForSpaceSelection(){
+        verify(out, atLeast(1)).println("Player 2- please select a space to place your mark: ");
+    }
+
+    @Test
+    public void shouldReadSelectionFromSecondPlayer() throws IOException {
+        verify(in, atLeast(2)).readLine();
+    }
+
+
+    @Test
+    public void shouldPlaceMarkAtLocationWhenSecondPlayerTurnComplete() {
+        verify(board).placeMarkAtLocation("O", 3);
+    }
+
+
+    @Test
+    public void shouldReprintBoardWithMarkWhenSecondPlayerEntersInput() {
+        verify(board, atLeast(3)).display();
+    }
+
+
+
+
+
+
+
+    @Test
+    public void shouldPrintMessageWhenLocationTaken(){
+        verify(out).println("Location already taken.");
     }
 
 }

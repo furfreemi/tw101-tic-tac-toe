@@ -19,7 +19,7 @@ public class BoardTest {
     @Before
     public void setUp() {
         printStream = mock(PrintStream.class);
-        board = new Board(printStream);
+        board = new Board(printStream, new String[9]);
     }
 
     @Test
@@ -44,6 +44,17 @@ public class BoardTest {
     }
 
 
+    @Test
+    public void shouldReturnFalseWhenLocationAlreadyMarked(){
+        board.placeMarkAtLocation("X", 3);
+
+        assertFalse(board.availableLocation(3));
+    }
+
+    @Test
+    public void shouldReturnTrueWhenLocationNotYetMarked(){
+        assertTrue(board.availableLocation(2));
+    }
 
 
 

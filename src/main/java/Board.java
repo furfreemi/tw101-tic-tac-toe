@@ -1,3 +1,4 @@
+
 import java.io.PrintStream;
 
 /**
@@ -6,23 +7,23 @@ import java.io.PrintStream;
 public class Board {
 
 
-    private String[] board = new String[9];
+    private String[] board;
     private PrintStream out;
 
 
-    public Board(PrintStream out){
+    public Board(PrintStream out, String[] board){
         this.out = out;
-
-        for (int i = 0; i < board.length; i++){
-            board[i] = i + 1 + "";
-        }
-
+        this.board = board;
     }
 
 
-    public boolean placeMarkAtLocation(String mark, int location){
+    public void placeMarkAtLocation(String mark, int location){
         board[location - 1] = mark;
-        return false;
+    }
+
+
+    public boolean availableLocation(int location){
+        return board[location - 1] == null;
     }
 
 
@@ -30,7 +31,11 @@ public class Board {
         String boardString = "";
         for (int r = 0; r < 3; r++){
             for (int c = 0; c < 3; c++){
-                boardString += board[r * 3 + c];
+                if (board[r * 3 + c] != null) {
+                    boardString += board[r * 3 + c];
+                } else {
+                    boardString += r * 3 + c + 1;
+                }
                 if (c < 2){
                     boardString += "|";
                 }
@@ -41,4 +46,10 @@ public class Board {
         }
         out.println(boardString);
     }
+
+
+
+
+
+
 }
