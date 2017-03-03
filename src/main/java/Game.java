@@ -11,54 +11,50 @@ public class Game {
     private BufferedReader in;
     private PrintStream out;
     private Board board;
-    private boolean playerOneTurn = true;
+    private final Player p1;
+    private final Player p2;
 
 
-    public Game(BufferedReader in, PrintStream out, Board board) {
+    public Game(BufferedReader in, PrintStream out, Board board, Player p1, Player p2) {
         this.in = in;
         this.out = out;
-
-
         this.board = board;
+        this.p1 = p1;
+        this.p2 = p2;
     }
 
 
     public void start() {
         board.display();
-         playerMarkSelection();
-         playerMarkSelection();
-         playerMarkSelection();
+         playerTurn(p1);
+         playerTurn(p2);
 
     }
 
 
-    private void playerMarkSelection() {
-        String mark = "X";
-        int player = 1;
-
-        if (!playerOneTurn){
-            mark = "O";
-            player = 2;
-        }
-
+    private void playerTurn(Player activePlayer) {
         try {
-            boolean placedMark = false;
-            while (!placedMark) {
-                out.println("Player " + player + "- please select a space to place your mark: ");
-                int markLocation = Integer.parseInt(in.readLine());
-                if (board.availableLocation(markLocation)) {
-                    board.placeMarkAtLocation(mark, markLocation);
-                    placedMark = true;
-                } else {
-                    out.println("Location already taken.");
-                }
-            }
+            placePlayerMark(activePlayer);
             board.display();
         } catch (IOException e) {
 
         }
-        playerOneTurn = !playerOneTurn;
     }
+
+    private void placePlayerMark(Player activePlayer) throws IOException {
+        boolean placedMark = false;
+        while (!placedMark) {
+            int markLocation = activePlayer.locationSelection();
+            if (board.availableLocation(markLocation)) {
+                board.placeMarkAtLocation(activePlayer.mark(), markLocation);
+                placedMark = true;
+            } else {
+                out.println("Location already taken.");
+            }
+        }
+    }
+
+
 
 
 
