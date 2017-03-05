@@ -2,6 +2,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.PrintStream;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.mockito.Matchers.contains;
 import static org.mockito.Mockito.verify;
@@ -15,22 +17,24 @@ public class BoardTest {
 
     private PrintStream printStream;
     private Board board;
+    private List<String> boardArray;
 
     @Before
     public void setUp() {
         printStream = mock(PrintStream.class);
-        board = new Board(printStream, new String[9]);
+        boardArray = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9");
+        board = new Board(printStream, boardArray);
     }
 
     @Test
     public void shouldDisplayGameBoardWhenNoMovesMade(){
         board.display();
-        verify(printStream).println("1|2|3\n" +
+        verify(printStream).println(
+                "1|2|3\n" +
                 "-----\n" +
                 "4|5|6\n" +
                 "-----\n" +
                 "7|8|9"
-
         );
     }
 

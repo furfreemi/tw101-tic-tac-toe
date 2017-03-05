@@ -1,5 +1,6 @@
 
 import java.io.PrintStream;
+import java.util.List;
 
 /**
  * Created by lmarcich on 3/3/17.
@@ -7,43 +8,44 @@ import java.io.PrintStream;
 public class Board {
 
 
-    private String[] board;
+    private List<String> board;
     private PrintStream out;
 
 
-    public Board(PrintStream out, String[] board){
+    public Board(PrintStream out, List<String> board){
         this.out = out;
         this.board = board;
     }
 
 
     public void placeMarkAtLocation(String mark, int location){
-        board[location - 1] = mark;
+        board.set(location - 1, mark);
     }
 
 
     public boolean availableLocation(int location){
-        return board[location - 1] == null;
+        return isNumber(board.get(location - 1));
+    }
+
+
+    private boolean isNumber(String location){
+        try {
+            Integer.parseInt(location);
+            return true;
+        } catch (NumberFormatException e){
+            return false;
+        }
     }
 
 
     public void display(){
-        String boardString = "";
-        for (int r = 0; r < 3; r++){
-            for (int c = 0; c < 3; c++){
-                if (board[r * 3 + c] != null) {
-                    boardString += board[r * 3 + c];
-                } else {
-                    boardString += r * 3 + c + 1;
-                }
-                if (c < 2){
-                    boardString += "|";
-                }
-            }
-            if (r < 2){
-                boardString += "\n-----\n";
-            }
-        }
+        String boardString = String.format(
+                        "%s|%s|%s\n" +
+                        "-----\n" +
+                        "%s|%s|%s\n" +
+                        "-----\n" +
+                        "%s|%s|%s", board.toArray());
+
         out.println(boardString);
     }
 

@@ -1,5 +1,7 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by lmarcich on 3/3/17.
@@ -7,7 +9,11 @@ import java.io.InputStreamReader;
 public class Main {
 
     public static void main(String[] args) {
-        new Game(System.out, new Board(System.out, new String[9]), new Player(new BufferedReader(new InputStreamReader(System.in)), System.out, 1, "X"), new Player(new BufferedReader(new InputStreamReader(System.in)), System.out, 2, "O")).start();
+        List<String> boardArray = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9");
+        Board board = new Board(System.out, boardArray);
+        Player playerOne = new Player(new BufferedReader(new InputStreamReader(System.in)), System.out, 1, "X");
+        Player playerTwo = new Player(new BufferedReader(new InputStreamReader(System.in)), System.out, 2, "O");
+        new Game(System.out, board, playerOne, playerTwo).start();
     }
 
 }
