@@ -11,9 +11,9 @@ public class Main {
     public static void main(String[] args) {
         List<String> boardArray = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9");
         Board board = new Board(System.out, boardArray);
-        Player playerOne = new Player(new BufferedReader(new InputStreamReader(System.in)), System.out, 1, "X");
-        Player playerTwo = new Player(new BufferedReader(new InputStreamReader(System.in)), System.out, 2, "O");
-        new Game(System.out, board, playerOne, playerTwo).start();
+        Player playerOne = new Player(new BufferedReader(new InputStreamReader(System.in)), System.out, "One", "X", board);
+        Player playerTwo = new Player(new BufferedReader(new InputStreamReader(System.in)), System.out, "Two", "O", board);
+        new Game(board, playerOne, playerTwo).start();
     }
 
 }

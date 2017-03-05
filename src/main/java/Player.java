@@ -8,26 +8,36 @@ import java.io.PrintStream;
 public class Player {
     private PrintStream out;
     private BufferedReader in;
-    private final int id;
+    private final String id;
     public final String mark;
+    private Board board;
 
-    public Player(BufferedReader in, PrintStream out, int id, String mark) {
+    public Player(BufferedReader in, PrintStream out, String id, String mark, Board board) {
         this.out = out;
         this.in = in;
         this.id = id;
         this.mark = mark;
+        this.board = board;
     }
 
 
-    
 
-
-    public int locationSelection() throws IOException {
+    public void placeMark()  {
         out.println("Player " + id + "- please select a space to place your mark: ");
-        return Integer.parseInt(in.readLine());
+        int location;
+        while (!board.isAvailableLocation((location = readLine()))) {
+            out.println("Location already taken. Please select a different location: ");
+        }
+        board.placeMarkAtLocation(mark, location);
+
     }
 
-    public String mark(){
-        return mark;
+    private int readLine() {
+        try {
+            return Integer.parseInt(in.readLine());
+        } catch (IOException e){
+            return -1;
+        }
     }
+
 }
