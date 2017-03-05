@@ -1,6 +1,5 @@
 
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
 
@@ -43,7 +42,7 @@ public class Game {
         boolean placedMark = false;
         while (!placedMark) {
             int markLocation = activePlayer.locationSelection();
-            if (board.availableLocation(markLocation)) {
+            if (board.isAvailableLocation(markLocation)) {
                 board.placeMarkAtLocation(activePlayer.mark(), markLocation);
                 placedMark = true;
             } else {

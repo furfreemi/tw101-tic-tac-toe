@@ -5,6 +5,7 @@ import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.Matchers.contains;
 import static org.mockito.Mockito.verify;
 import static org.junit.Assert.*;
@@ -17,13 +18,13 @@ public class BoardTest {
 
     private PrintStream printStream;
     private Board board;
-    private List<String> boardArray;
+    private List<String> locations;
 
     @Before
     public void setUp() {
         printStream = mock(PrintStream.class);
-        boardArray = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9");
-        board = new Board(printStream, boardArray);
+        locations = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9");
+        board = new Board(printStream, locations);
     }
 
     @Test
@@ -39,25 +40,34 @@ public class BoardTest {
     }
 
 
+    @Test
+    public void shouldMarkCorrectLocationWhenMarkMade(){
+        board.placeMarkAtLocation("mark test", 3);
+
+        assertThat(locations.get(2), is("mark test"));
+    }
+
+
 
     @Test
     public void shouldDisplayCorrectMarkLocationWhenMarkMade(){
-        board.placeMarkAtLocation("X", 3);
+        locations.set(2, "mark test");
         board.display();
-        verify(printStream).println(contains("1|2|X"));
+        verify(printStream).println(contains("1|2|mark test"));
     }
 
 
     @Test
-    public void shouldReturnFalseWhenLocationAlreadyMarked(){
-        board.placeMarkAtLocation("X", 3);
+    public void locationShouldBeUnavailableWhenLocationAlreadyMarked(){
+        locations.set(2, "any string");
 
-        assertFalse(board.availableLocation(3));
+        assertThat(board.isAvailableLocation(3), is(false));
     }
 
+
     @Test
-    public void shouldReturnTrueWhenLocationNotYetMarked(){
-        assertTrue(board.availableLocation(2));
+    public void locationShouldBeAvailableWhenLocationUnmarked(){
+        assertThat(board.isAvailableLocation(2), is(true));
     }
 
 

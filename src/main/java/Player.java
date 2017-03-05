@@ -19,6 +19,9 @@ public class Player {
     }
 
 
+    
+
+
     public int locationSelection() throws IOException {
         out.println("Player " + id + "- please select a space to place your mark: ");
         return Integer.parseInt(in.readLine());

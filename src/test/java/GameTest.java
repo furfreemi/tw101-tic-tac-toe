@@ -36,8 +36,8 @@ public class GameTest {
     public void shouldDisplayBoardGuideWhenGameStarts() throws IOException {
         when(p1.locationSelection()).thenReturn(1);
         when(p2.locationSelection()).thenReturn(3);
-        when(board.availableLocation(1)).thenReturn(true);
-        when(board.availableLocation(3)).thenReturn(true);
+        when(board.isAvailableLocation(1)).thenReturn(true);
+        when(board.isAvailableLocation(3)).thenReturn(true);
         game.start();
         verify(board, atLeast(1)).display();
     }
@@ -50,8 +50,8 @@ public class GameTest {
     public void shouldPromptFirstPlayerForSpaceSelection() throws IOException {
         when(p1.locationSelection()).thenReturn(1);
         when(p2.locationSelection()).thenReturn(3);
-        when(board.availableLocation(1)).thenReturn(true);
-        when(board.availableLocation(3)).thenReturn(true);
+        when(board.isAvailableLocation(1)).thenReturn(true);
+        when(board.isAvailableLocation(3)).thenReturn(true);
         game.start();
         verify(p1, atLeast(1)).locationSelection();
     }
@@ -62,8 +62,8 @@ public class GameTest {
     public void shouldPlaceMarkAtLocationWhenFirstPlayerTurnComplete() throws IOException {
         when(p1.locationSelection()).thenReturn(1);
         when(p2.locationSelection()).thenReturn(3);
-        when(board.availableLocation(1)).thenReturn(true);
-        when(board.availableLocation(3)).thenReturn(true);
+        when(board.isAvailableLocation(1)).thenReturn(true);
+        when(board.isAvailableLocation(3)).thenReturn(true);
         game.start();
         verify(board).placeMarkAtLocation("X", 1);
     }
@@ -73,8 +73,8 @@ public class GameTest {
     public void shouldReprintBoardWithMarkWhenFirstPlayerEntersInput() throws IOException {
         when(p1.locationSelection()).thenReturn(1);
         when(p2.locationSelection()).thenReturn(3);
-        when(board.availableLocation(1)).thenReturn(true);
-        when(board.availableLocation(3)).thenReturn(true);
+        when(board.isAvailableLocation(1)).thenReturn(true);
+        when(board.isAvailableLocation(3)).thenReturn(true);
         game.start();
         verify(board, atLeast(2)).display();
     }
@@ -86,8 +86,8 @@ public class GameTest {
     public void shouldPlaceMarkAtLocationWhenSecondPlayerTurnComplete() throws IOException {
         when(p1.locationSelection()).thenReturn(1);
         when(p2.locationSelection()).thenReturn(3);
-        when(board.availableLocation(1)).thenReturn(true);
-        when(board.availableLocation(3)).thenReturn(true);
+        when(board.isAvailableLocation(1)).thenReturn(true);
+        when(board.isAvailableLocation(3)).thenReturn(true);
         game.start();
         verify(board).placeMarkAtLocation("O", 3);
     }
@@ -97,8 +97,8 @@ public class GameTest {
     public void shouldReprintBoardWithMarkWhenSecondPlayerEntersInput() throws IOException {
         when(p1.locationSelection()).thenReturn(1);
         when(p2.locationSelection()).thenReturn(3);
-        when(board.availableLocation(1)).thenReturn(true);
-        when(board.availableLocation(3)).thenReturn(true);
+        when(board.isAvailableLocation(1)).thenReturn(true);
+        when(board.isAvailableLocation(3)).thenReturn(true);
         game.start();
         verify(board, atLeast(3)).display();
     }
@@ -109,8 +109,8 @@ public class GameTest {
     public void shouldPrintMessageWhenLocationTaken() throws IOException {
         when(p1.locationSelection()).thenReturn(1);
         when(p2.locationSelection()).thenReturn(1, 3);
-        when(board.availableLocation(1)).thenReturn(true, false);
-        when(board.availableLocation(3)).thenReturn(true);
+        when(board.isAvailableLocation(1)).thenReturn(true, false);
+        when(board.isAvailableLocation(3)).thenReturn(true);
         game.start();
         verify(out).println("Location already taken.");
     }

@@ -1,5 +1,6 @@
 
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,34 +9,28 @@ import java.util.List;
 public class Board {
 
 
-    private List<String> board;
+    private List<String> locations;
+    private List<String> originalLocations;
     private PrintStream out;
 
 
-    public Board(PrintStream out, List<String> board){
+    public Board(PrintStream out, List<String> locations){
         this.out = out;
-        this.board = board;
+        this.locations = locations;
+        this.originalLocations = new ArrayList<String>(locations);
     }
 
 
     public void placeMarkAtLocation(String mark, int location){
-        board.set(location - 1, mark);
+        locations.set(location - 1, mark);
     }
 
 
-    public boolean availableLocation(int location){
-        return isNumber(board.get(location - 1));
+    public boolean isAvailableLocation(int location){
+        int index = location - 1;
+        return locations.get(index).equals(originalLocations.get(index));
     }
 
-
-    private boolean isNumber(String location){
-        try {
-            Integer.parseInt(location);
-            return true;
-        } catch (NumberFormatException e){
-            return false;
-        }
-    }
 
 
     public void display(){
@@ -44,7 +39,7 @@ public class Board {
                         "-----\n" +
                         "%s|%s|%s\n" +
                         "-----\n" +
-                        "%s|%s|%s", board.toArray());
+                        "%s|%s|%s", locations.toArray());
 
         out.println(boardString);
     }
